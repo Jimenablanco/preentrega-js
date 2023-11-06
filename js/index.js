@@ -23,6 +23,10 @@ class Compra {
         this.subtotal += producto.precio;
     }
 
+    costoTotal() {
+        return this.carrito.reduce((total, producto) => total + producto.precio, 0);
+    }
+
     totalEn3Cuotas() {
         return this.subtotal / 3;
     }
@@ -50,7 +54,7 @@ function comprar() {
             comprar();
         } else {
             console.table(miCompra.carrito);
-            console.log("El costo total de los productos seleccionados es: $" + miCompra.subtotal + ".")
+            console.log("El costo total de los productos seleccionados es: $" + miCompra.costoTotal() + ".");
             console.log("El costo total en 3 cuotas sin interés es: $" + miCompra.totalEn3Cuotas().toFixed(2) + ".");
         }
     } else {
