@@ -37,6 +37,16 @@ function buscarProducto(codigo) {
     return productoBuscado;
 }
 
+function filtrarXprecioMenor(importe) {
+    let resultado = productos.filter((producto) => producto.precio <= importe);
+    if (resultado.length > 0) {
+        console.log("Estos son los productos encotrados con un precio menor a $" + importe + ":")
+        console.table(resultado);
+    } else {
+        console.warn("No se encontraron coincidencias");
+    }
+}
+
 const miCompra = new Compra();
 
 function comprar() {
@@ -54,12 +64,20 @@ function comprar() {
             comprar();
         } else {
             console.table(miCompra.carrito);
-            console.log("El costo total de los productos seleccionados es: $" + miCompra.costoTotal() + ".");
-            console.log("El costo total en 3 cuotas sin interés es: $" + miCompra.totalEn3Cuotas().toFixed(2) + ".");
+            console.log("El total de los productos seleccionados es de: $" + miCompra.costoTotal() + ".");
+            console.log("En hasta 3 cuotas de: $" + miCompra.totalEn3Cuotas().toFixed(2) + " sin interés.");
+
+            let filtrar = confirm("¿Deseas filtrar productos por precio?");
+            if (filtrar === true) {
+                let importe = prompt("Ingresa el precio aproximado:");
+                filtrarXprecioMenor(importe);
+            }
         }
+    
     } else {
         alert("Producto no encontrado. No se ha agregado al carrito. \n(Refresca la página para volver a comenzar)");
     }
 }
+
 
 //comprar() -----> para ejecutar la función en la consola;
